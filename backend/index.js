@@ -14,7 +14,12 @@ dotenv.config();
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server, { cors: { origin: "*" } });
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173", // Replace with your frontend URL
+    methods: ["GET", "POST"],
+  },
+});
 
 // Middleware
 app.use(cors());
@@ -27,18 +32,16 @@ app.use("/api/group", groupRoutes);
 
 // MongoDB Connection
 mongoose
-  .connect(process.env.MONGO_URI || "mongosh:localhost:27017/hack10", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.error(err));
 
-// Socket.io for Real-time Messaging
+// ✅ Move the event listeners inside the `io.on("connection")` block
 io.on("connection", (socket) => {
-  console.log("User connected:", socket.id);
+  console.log(`User connected: ${socket.id}`);
 
   socket.on("sendMessage", (data) => {
+    console.log("Sending message:", data);
     io.to(data.room).emit("receiveMessage", data);
   });
 
