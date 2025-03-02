@@ -20,7 +20,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "*", // Update as needed
+    origin: "https://hackathon10x-5n81.vercel.app", // Update as needed
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["my-custom-header"],
     credentials: true,
@@ -33,7 +33,12 @@ const peerServer = ExpressPeerServer(server, { debug: true });
 app.use("/peerjs", peerServer);
 
 // Middleware
-app.use(cors({ origin: "*", credentials: true }));
+app.use(
+  cors({
+    origin: "https://hackathon10x-5n81.vercel.app",
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Public Routes

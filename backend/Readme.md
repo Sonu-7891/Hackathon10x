@@ -41,7 +41,7 @@ backend/
 
 ### 1️⃣ Clone the repository
 ```sh
-git clone https://github.com/your-username/community-collab-backend.git
+git clone https://github.com/Sonu-7891/Hackathon10x.git
 cd community-collab-backend
 ```
 
