@@ -123,6 +123,5 @@ The server will run at `http://localhost:5000`.
 - **Real-Time:** Socket.io, WebRTC
 - **File Uploads:** Multer
 
-## 📞 Support
-Need help? Contact me at `your-email@example.com`
+
 

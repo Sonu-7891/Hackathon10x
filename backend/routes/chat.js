@@ -1,7 +1,7 @@
 import express from "express";
 import Chat from "../models/chat.js";
 import Message from "../models/Message.js";
-import authMiddleware from "../Middlewares/authMiddleware.js";
+import authMiddleware from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
