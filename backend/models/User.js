@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
   skills: [String],
   profilePic: String,
   groups: [{ type: mongoose.Schema.Types.ObjectId, ref: "Group" }],
+  lastSeen: { type: Date, default: null }, // Store last seen timestamp
 });
 
 export default mongoose.model("User", UserSchema);
