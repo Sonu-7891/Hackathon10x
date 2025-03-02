@@ -1,6 +1,7 @@
 import express from "express";
 import User from "../models/User.js";
 import authMiddleware from "../middlewares/authMiddleware.js";
+// import { io } from "./index.js"; // Import socket.io instance
 
 const router = express.Router();
 const onlineUsers = new Set(); // Track online users
@@ -34,6 +35,16 @@ router.get("/status/:userId", async (req, res) => {
     isOnline,
     lastSeen: isOnline ? null : user.lastSeen,
   });
+});
+
+// ✅ Update user profile
+router.put("/:userId", authMiddleware, async (req, res) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.params.userId, req.body, { new: true });
+    res.json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
 });
 
 export default router;

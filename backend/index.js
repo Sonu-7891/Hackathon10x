@@ -29,7 +29,8 @@ const peerServer = ExpressPeerServer(server, { debug: true });
 app.use("/peerjs", peerServer);
 
 // Middleware
-app.use(cors());
+
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
 
 // Public Routes (No Authentication)
@@ -50,9 +51,11 @@ const usersInRoom = {};
 const onlineUsers = new Set();
 
 io.on("connection", (socket) => {
-  console.log(`User connected: ${socket.id}`);
+  const userId = socket.handshake.query.userId || "guest"; // ✅ Handle missing userId
+  console.log(`User Connected: ${socket.id}, UserID: ${userId}`);
   // Handle user login activity
   // Handle user login activity
+  
   socket.on("user-online", async (userId) => {
     onlineUsers.add(userId);
     io.emit("user-status-updated", { userId, isOnline: true });
